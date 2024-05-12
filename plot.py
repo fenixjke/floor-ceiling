@@ -42,5 +42,15 @@ class Drawing:
         plt.savefig(plots_folder + '/' + scatter_name)
         paths_to_plots.append(plots_folder + '/' + scatter_name)
 
+        plt.figure(figsize=(16, 10))
+        df1 = df.drop(['name', 'rb_corners'], axis=1)
+        new_cols = [col for col in df1.columns if col != 'gt_corners'] + ['gt_corners']
+        df1 = df1[new_cols]
+        plt.title('Data Correlation')
+        sn.heatmap(df1.corr(), annot=True, fmt='.2f')
+        correlation_name = 'correlation.png'
+        plt.savefig(plots_folder + '/' + correlation_name)
+        paths_to_plots.append(plots_folder + '/' + correlation_name)
+
         return paths_to_plots
 
